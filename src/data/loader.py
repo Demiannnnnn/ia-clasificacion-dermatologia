@@ -28,17 +28,11 @@ def load_data(file_path):
     
     df = pd.read_csv(file_path, header=None, names=column_names, na_values='?')
     
-    # Convert age column to numeric, coercing errors to NaN
-    df['age'] = pd.to_numeric(df['age'], errors='coerce')
-    
-    # Fill missing age values with the mean
-    df['age'].fillna(df['age'].mean(), inplace=True)
-    
     return df
 
 if __name__ == '__main__':
     # Example of how to use the function
-    data_path = '../dermatology/dermatology.data'
+    data_path = '../../dermatology/dermatology.data'
     dermatology_df = load_data(data_path)
     print(dermatology_df.head())
     print(dermatology_df.info())

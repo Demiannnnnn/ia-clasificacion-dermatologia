@@ -1,4 +1,5 @@
 from src.data.loader import load_data
+from src.evaluation.cleaner import clean_data
 from src.evaluation.splitter import split_data
 from src.evaluation.scaler import scale_features
 from src.models.naive_bayes import NaiveBayesModel
@@ -15,6 +16,9 @@ def train_model(data_path):
     """
     # Load data
     dermatology_df = load_data(data_path)
+
+    # Clean data
+    dermatology_df = clean_data(dermatology_df)
 
     # Split data
     X_train, X_test, y_train, y_test = split_data(dermatology_df)
