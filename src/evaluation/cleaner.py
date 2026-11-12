@@ -24,7 +24,7 @@ def clean_data(df):
             df[col] = pd.to_numeric(df[col], errors='coerce')
 
     # Optional: Drop rows if any other column has NaNs after coercion
-    df.dropna(inplace=True)
+    df = df.dropna()
 
     return df
 
