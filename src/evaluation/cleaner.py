@@ -10,6 +10,8 @@ def clean_data(df):
     Returns:
         pd.DataFrame: The cleaned dataframe.
     """
+    df = df.copy()
+
     # Convert age column to numeric, coercing errors to NaN
     df['age'] = pd.to_numeric(df['age'], errors='coerce')
 

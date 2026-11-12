@@ -45,3 +45,12 @@ def test_clean_real_dataset_has_no_nans(raw_df):
     cleaned = clean_data(raw_df.copy())
     assert cleaned.isna().sum().sum() == 0
     assert len(cleaned) == 366
+
+
+def test_clean_data_does_not_mutate_input():
+    df = pd.DataFrame({"a": ["1", "2", "3"], "age": ["10", "?", "30"], "class": [1, 2, 1]})
+    snapshot = df.copy(deep=True)
+    cleaned = clean_data(df)
+    pd.testing.assert_frame_equal(df, snapshot)
+    assert not cleaned.equals(df)
+

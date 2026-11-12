@@ -30,6 +30,19 @@ def test_split_data_sizes_and_reproducibility():
     assert list(X_test.index) == list(again[1].index)
 
 
+def test_split_data_stratified_imbalanced():
+    df = pd.DataFrame({
+        "feat": range(100),
+        "class": [1] * 70 + [2] * 20 + [3] * 5 + [4] * 5,
+    })
+    X_train, X_test, y_train, y_test = split_data(df, test_size=0.2)
+    assert set(y_test.unique()) == set(df["class"].unique())
+    orig_props = df["class"].value_counts(normalize=True).sort_index()
+    test_props = y_test.value_counts(normalize=True).sort_index()
+    np.testing.assert_allclose(test_props.values, orig_props.values, atol=0.02)
+
+
+
 def test_scale_features_fits_only_on_train():
     X_train = pd.DataFrame({"x": [0.0, 2.0, 4.0]})
     X_test = pd.DataFrame({"x": [2.0, 6.0]})
